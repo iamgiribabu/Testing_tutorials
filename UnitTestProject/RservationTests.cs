@@ -10,7 +10,7 @@ namespace UnitTestProject
         //the first part specifies the name of the method on the test,
         //the second part is the scenario of our testing, and 
         //the third part is the expected behavior.
-        [TestMethod]
+        [TestMethod] //this attribute belongs to ms test framework
         public void CanBeCancelledBy_UserIsAdmin_ReturnsTrue()
         {
             //Arrange :
@@ -26,6 +26,26 @@ namespace UnitTestProject
             //Assert
 
             Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void CanBeCancelledBy_SameUserCancellingTheReseration_ReturnTrue()
+        {
+            var user = new User();
+            var reseration = new Reservation { MadeBy = user };
+            var result = reseration.CanBeCancelledBy(user);
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void CanBeCancelledBy_AnotherUserCancellingTheReseration_ReturnFalse()
+        {
+           
+            var reseration = new Reservation { MadeBy = new User() };
+            var result = reseration.CanBeCancelledBy(new User());
+
+            Assert.IsFalse(result);
         }
     }
 }
