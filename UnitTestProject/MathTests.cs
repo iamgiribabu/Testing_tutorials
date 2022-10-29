@@ -1,7 +1,7 @@
 ﻿
 using NUnit.Framework;
 using System;
-
+using System.Linq;
 
 namespace UnitTestProject
 {
@@ -60,6 +60,22 @@ namespace UnitTestProject
             Assert.That(result, Is.EqualTo(2));
         }
 
+        [Test]
+        public void GetOddNumbers_LimitIsGreaterThanZero_ReturnOddNumbersUpToLimit()
+        {
+            var result = _math.GetOddNumbers(5);
 
+            //Assert.That(result, Is.Not.Empty);
+            Assert.That(result.Count(), Is.EqualTo(3));
+            //Assert.That(result, Does.Contain(1));
+            //Assert.That(result, Does.Contain(3));
+            //Assert.That(result, Does.Contain(5));
+
+
+            // check whether it contains in array or not without respect to order
+            Assert.That(result, Is.EquivalentTo(new[] {1, 3, 5 }));
+            Assert.That(result, Is.Ordered);
+            Assert.That(result, Is.Unique);
+        }
     }
 }
